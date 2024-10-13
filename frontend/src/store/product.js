@@ -14,7 +14,7 @@ export const useProductStore = create((set) => ({
     }
 
     try {
-      const res = await fetch("http://localhost:9000/api/products", {
+      const res = await fetch("/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export const useProductStore = create((set) => ({
 
   fetchProducts: async () => {
     try {
-      const res = await fetch("http://localhost:9000/api/products");
+      const res = await fetch("/api/products");
       if (!res.ok) {
         throw new Error("Network response was not ok");
       }
@@ -58,7 +58,7 @@ export const useProductStore = create((set) => ({
   },
 
   deleteProduct: async (pid) => {
-    const res = await fetch(`http://localhost:9000/api/products/${pid}`, {
+    const res = await fetch(`/api/products/${pid}`, {
       method: "DELETE",
     });
     const data = await res.json();
@@ -74,7 +74,7 @@ export const useProductStore = create((set) => ({
     return { success: true, message: data.message };
   },
   updateProduct: async (pid, updatedProduct) => {
-    const res = await fetch(`http://localhost:9000/api/products/${pid}`, {
+    const res = await fetch(`/api/products/${pid}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

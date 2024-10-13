@@ -31,7 +31,7 @@ APP.use(morgan("dev"));
 
 APP.use("/api/products", productRouts);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const server = http.createServer(APP);
 
 const rootDirectory = path.resolve();
@@ -44,14 +44,9 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-server.listen(PORT, async () => {
-  try {
-    await connectDB();
-    console.log(`Server listening on port ${PORT}`);
-  } catch (error) {
-    console.error("Failed to start the server:", error);
-    process.exit(1);
-  }
+server.listen(PORT, () => {
+  connectDB();
+  console.log(`Server listening on port ${PORT}`);
 });
 
 const gracefulShutdown = async () => {
