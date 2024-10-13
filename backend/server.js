@@ -3,11 +3,7 @@ import http from "http";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import productRouts from "./routes/product.route.js";
-import mongoose from "mongoose";
-import helmet from "helmet";
 import compression from "compression";
-import morgan from "morgan";
-import fs from "fs";
 import path from "path";
 import cors from "cors";
 
@@ -17,18 +13,8 @@ const APP = express();
 
 APP.use(cors());
 APP.use(express.json());
-APP.use(helmet());
+
 APP.use(compression());
-
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-
-const accessLogStream = fs.createWriteStream(
-  path.join(__dirname, "access.log"),
-  { flags: "a" }
-);
-APP.use(morgan("combined", { stream: accessLogStream }));
-APP.use(morgan("dev"));
-
 APP.use("/api/products", productRouts);
 
 const PORT = process.env.PORT || 3001;
